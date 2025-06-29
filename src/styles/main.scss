@@ -1,0 +1,55 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+[data-theme='light'] {
+  body {
+    color: $grey-950;
+    background-color: $grey-50;
+  }
+}
+
+[data-theme='dark'] {
+  body {
+    color: $white;
+    background-color: $blue-950;
+  }
+}
+
+html {
+  font-size: 62.5%;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-detail;
+  font-weight: $font-weight-light;
+  line-height: 1.5;
+  color: $grey-950;
+  background-color: $grey-50;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: $transition-base;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (min-width: $breakpoint-tablet) {
+  body {
+    font-size: $font-size-homepage;
+  }
+}

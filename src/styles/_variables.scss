@@ -1,0 +1,23 @@
+//Colors
+$blue-900: hsl(209, 23%, 22%); // Dark Mode Elements
+$blue-950: hsl(207, 26%, 17%); // Dark Mode Background
+$grey-950: hsl(200, 15%, 8%); // Light Mode Text
+$grey-400: hsl(0, 0%, 50%); // Light Mode Input
+$grey-50: hsl(0, 0%, 99%); // Light Mode Background
+$white: hsl(0, 100%, 100%); // Dark Mode Text & Light Mode Elements
+
+// Typography
+
+$font-family-base: var(--font-nunito-sans), 'Nunito Sans', sans-serif;
+$font-weight-light: 300;
+$font-weight-semibold: 600;
+$font-weight-extrabold: 800;
+
+$font-size-homepage: 1.4rem;
+$font-size-detail: 1.6rem;
+
+// Transitions
+
+$transition-base: all 0.2s ease-in-out;
+$transition-fast: all 0.1s ease-in-out;
+$transition-slow: all 0.3s ease-in-out;

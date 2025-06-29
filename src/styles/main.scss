@@ -1,17 +1,20 @@
 @use 'variables' as *;
 @use 'breakpoints' as *;
+@use 'theme-mixins' as *;
+
+@include generate-theme-variables;
 
 [data-theme='light'] {
   body {
-    color: $grey-950;
-    background-color: $grey-50;
+    @include theme(color, text-color);
+    @include theme(background-color, background-color);
   }
 }
 
 [data-theme='dark'] {
   body {
-    color: $white;
-    background-color: $blue-950;
+    @include theme(color, text-color);
+    @include theme(background-color, background-color);
   }
 }
 
@@ -30,8 +33,8 @@ body {
   font-size: $font-size-detail;
   font-weight: $font-weight-light;
   line-height: 1.5;
-  color: $grey-950;
-  background-color: $grey-50;
+  @include theme(color, text-color);
+  @include theme(background-color, background-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: $transition-base;
@@ -48,8 +51,8 @@ a {
   text-decoration: none;
 }
 
-@media (min-width: $breakpoint-tablet) {
-  body {
-    font-size: $font-size-homepage;
-  }
-}
+// @media (min-width: $breakpoint-tablet) {
+//   body {
+//     font-size: $font-size-homepage;
+//   }
+// }

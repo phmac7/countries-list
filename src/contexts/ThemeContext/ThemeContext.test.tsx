@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
+import { ThemeProvider, useTheme } from '@/contexts/ThemeContext/ThemeContext';
 
 jest.mock('@/lib/theme/theme', () => ({
   getThemeFromClient: jest.fn(),

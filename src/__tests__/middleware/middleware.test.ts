@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
-import { middleware } from '../../middleware';
+import { middleware } from '../../../middleware';
 
-// Mock do NextResponse
 jest.mock('next/server', () => ({
   NextResponse: {
     next: jest.fn(),
@@ -47,9 +46,9 @@ describe('middleware', () => {
 
     expect(mockResponse.cookies.set).toHaveBeenCalledWith('theme', 'light', {
       httpOnly: false,
-      secure: false, // Em desenvolvimento
+      secure: false,
       sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 365, // 1 ano
+      maxAge: 60 * 60 * 24 * 365,
     });
     expect(result).toBe(mockResponse);
   });
@@ -175,7 +174,7 @@ describe('middleware', () => {
 
   it('should set secure cookie in production environment', () => {
     const originalEnv = process.env.NODE_ENV;
-    // @ts-expect-error - NODE_ENV é somente leitura mas funciona em testes
+    // @ts-expect-error - NODE_ENV is readonly but works in tests
     process.env.NODE_ENV = 'production';
 
     const mockRequest = {
@@ -204,13 +203,13 @@ describe('middleware', () => {
 
     expect(mockResponse.cookies.set).toHaveBeenCalledWith('theme', 'light', {
       httpOnly: false,
-      secure: true, // Em produção
+      secure: true,
       sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 365, // 1 ano
+      maxAge: 60 * 60 * 24 * 365,
     });
 
     // Restaurar NODE_ENV
-    // @ts-expect-error - NODE_ENV é somente leitura mas funciona em testes
+    // @ts-expect-error - NODE_ENV is readonly but works in tests
     process.env.NODE_ENV = originalEnv;
   });
 

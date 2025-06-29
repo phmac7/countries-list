@@ -1,0 +1,17 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+@use 'theme-mixins' as *;
+
+.navbar {
+  padding: 2rem 8rem;
+  @include theme(background-color, element-color);
+  box-shadow: 0 4px 4px theme-color(shadow-color);
+
+  &__container {
+    margin: 0 auto;
+    max-width: 144rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

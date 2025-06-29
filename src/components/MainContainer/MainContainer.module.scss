@@ -1,0 +1,8 @@
+.mainContainer {
+  padding: 2rem 8rem;
+  position: relative;
+  &__content {
+    max-width: 144rem;
+    margin: 0 auto;
+  }
+}

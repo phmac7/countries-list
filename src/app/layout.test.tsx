@@ -11,7 +11,7 @@ jest.mock('next/font/google', () => ({
   Nunito_Sans: () => ({ className: 'nunito-sans' }),
 }));
 
-jest.mock('@/contexts/ThemeContext', () => ({
+jest.mock('@/contexts', () => ({
   ThemeProvider: ({
     children,
     initialTheme,
@@ -25,12 +25,19 @@ jest.mock('@/contexts/ThemeContext', () => ({
   ),
 }));
 
+jest.mock('@/components', () => ({
+  Navbar: () => <div data-testid="navbar-mock">Navbar Mock</div>,
+  MainContainer: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="main-container-mock">{children}</div>
+  ),
+}));
+
 describe('RootLayout', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('deve renderizar o layout com o tema inicial do server', async () => {
+  it('should render layout with initial theme from server', async () => {
     (getThemeFromServer as jest.Mock).mockResolvedValue('dark');
     const children = <div>Conteúdo de Teste</div>;
     const { getByTestId, getByText } = render(await RootLayout({ children }));
@@ -39,10 +46,12 @@ describe('RootLayout', () => {
       'data-initial-theme',
       'dark'
     );
+    expect(getByTestId('navbar-mock')).toBeInTheDocument();
+    expect(getByTestId('main-container-mock')).toBeInTheDocument();
     expect(getByText('Conteúdo de Teste')).toBeInTheDocument();
   });
 
-  it('deve renderizar o layout com tema light quando getThemeFromServer retorna light', async () => {
+  it('should render layout with light when getThemeFromServer returns light', async () => {
     (getThemeFromServer as jest.Mock).mockResolvedValue('light');
     const children = <div>Conteúdo de Teste</div>;
     const { getByTestId } = render(await RootLayout({ children }));

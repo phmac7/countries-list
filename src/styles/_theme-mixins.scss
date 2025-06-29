@@ -1,0 +1,54 @@
+// Mapa de cores por tema
+$themes: (
+  light: (
+    text-color: #111517,
+    background-color: #fafafa,
+    element-color: #ffffff,
+    input-color: #858585,
+    border-color: #e1e5e9,
+    shadow-color: rgba(0, 0, 0, 0.1),
+    hover-color: #f5f5f5,
+  ),
+  dark: (
+    text-color: #ffffff,
+    background-color: #202c37,
+    element-color: #2b3743,
+    input-color: #858585,
+    border-color: #3a4a5c,
+    shadow-color: rgba(0, 0, 0, 0.3),
+    hover-color: #374151,
+  ),
+);
+
+// Função para obter cor do tema
+@function theme-color($color-name) {
+  @return var(--#{$color-name});
+}
+
+// Mixin para aplicar tema
+@mixin theme($property, $color-name) {
+  #{$property}: theme-color($color-name);
+}
+
+// Mixin para criar variáveis CSS
+@mixin generate-theme-variables {
+  :root {
+    @each $theme-name, $theme-colors in $themes {
+      @if $theme-name == 'light' {
+        @each $color-name, $color-value in $theme-colors {
+          --#{$color-name}: #{$color-value};
+        }
+      }
+    }
+  }
+
+  @each $theme-name, $theme-colors in $themes {
+    @if $theme-name != 'light' {
+      [data-theme='#{$theme-name}'] {
+        @each $color-name, $color-value in $theme-colors {
+          --#{$color-name}: #{$color-value};
+        }
+      }
+    }
+  }
+}

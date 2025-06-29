@@ -39,7 +39,7 @@ describe('RootLayout', () => {
 
   it('should render layout with initial theme from server', async () => {
     (getThemeFromServer as jest.Mock).mockResolvedValue('dark');
-    const children = <div>Conteúdo de Teste</div>;
+    const children = <div>Test Content</div>;
     const { getByTestId, getByText } = render(await RootLayout({ children }));
 
     expect(getByTestId('theme-provider')).toHaveAttribute(
@@ -48,12 +48,12 @@ describe('RootLayout', () => {
     );
     expect(getByTestId('navbar-mock')).toBeInTheDocument();
     expect(getByTestId('main-container-mock')).toBeInTheDocument();
-    expect(getByText('Conteúdo de Teste')).toBeInTheDocument();
+    expect(getByText('Test Content')).toBeInTheDocument();
   });
 
   it('should render layout with light when getThemeFromServer returns light', async () => {
     (getThemeFromServer as jest.Mock).mockResolvedValue('light');
-    const children = <div>Conteúdo de Teste</div>;
+    const children = <div>Test Content</div>;
     const { getByTestId } = render(await RootLayout({ children }));
 
     expect(getByTestId('theme-provider')).toHaveAttribute(

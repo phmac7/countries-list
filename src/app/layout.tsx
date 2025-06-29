@@ -24,7 +24,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" data-theme={initialTheme}>
-      <body className={nunitoSans.className}>
+      <body className={nunitoSans.className} suppressHydrationWarning>
         <ThemeProvider initialTheme={initialTheme}>
           <Navbar />
           <MainContainer>{children}</MainContainer>

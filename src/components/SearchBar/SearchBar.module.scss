@@ -1,0 +1,36 @@
+@use 'variables' as *;
+@use 'theme-mixins' as *;
+
+.searchContainer {
+  position: relative;
+  padding: 1.9rem 3.2rem;
+  width: 100%;
+  max-width: 48rem;
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+  background-color: theme-color(element-color);
+  box-shadow: 0 2px 8px theme-color(shadow-color);
+  border-radius: 8px;
+}
+
+.searchIcon {
+  color: theme-color(input-color);
+}
+
+.searchInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.4rem;
+  color: theme-color(text-color);
+
+  &::placeholder {
+    color: theme-color(input-color);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

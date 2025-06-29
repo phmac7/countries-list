@@ -3,9 +3,13 @@
 @use 'theme-mixins' as *;
 
 .navbar {
-  padding: 2rem 8rem;
+  padding: $vertical-spacing-desktop $horizontal-spacing-desktop;
   @include theme(background-color, element-color);
   box-shadow: 0 4px 4px theme-color(shadow-color);
+
+  @include mobile {
+    padding: $vertical-spacing-mobile $horizontal-spacing-mobile;
+  }
 
   &__container {
     margin: 0 auto;

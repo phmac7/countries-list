@@ -1,3 +1,3 @@
 export * from './ThemeToggle';
-export * from './Navbar';
 export * from './MainContainer';
+export * from './Navbar';

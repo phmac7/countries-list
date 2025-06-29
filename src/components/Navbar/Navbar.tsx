@@ -1,8 +1,8 @@
 import React from 'react';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { ThemeToggle } from '@/components';
 import styles from './Navbar.module.scss';
 
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbar__container}>
@@ -12,5 +12,3 @@ const Navbar: React.FC = () => {
     </nav>
   );
 };
-
-export default Navbar;

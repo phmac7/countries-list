@@ -9,6 +9,8 @@ const customJestConfig = {
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^@/contexts$': '<rootDir>/src/contexts/index.tsx',
+    '^@/components$': '<rootDir>/src/components/index.ts',
   },
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   collectCoverageFrom: [

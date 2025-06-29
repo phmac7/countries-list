@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './MainContainer.module.scss';
 
-const MainContainer: React.FC<{ children: React.ReactNode }> = ({
+export const MainContainer: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
@@ -10,5 +10,3 @@ const MainContainer: React.FC<{ children: React.ReactNode }> = ({
     </main>
   );
 };
-
-export default MainContainer;

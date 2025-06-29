@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from '@/contexts/ThemeContext/ThemeContext';
+import { ThemeProvider } from '@/contexts';
 import Page from '@/app/page';
 
 jest.mock('next/image', () => ({
@@ -34,10 +34,8 @@ describe('Home Page', () => {
       </ThemeProvider>
     );
 
-  it('shows theme toggle button', () => {
+  it('shows home content', () => {
     renderWithTheme();
-    expect(
-      screen.getByRole('button', { name: /Switch to dark mode/i })
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('home-content')).toBeInTheDocument();
   });
 });

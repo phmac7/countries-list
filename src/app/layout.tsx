@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Nunito_Sans } from 'next/font/google';
-import { ThemeProvider } from '@/contexts/ThemeContext/ThemeContext';
+import { ThemeProvider } from '@/contexts';
 import { getThemeFromServer } from '@/lib/theme/theme-server';
 import { Navbar, MainContainer } from '@/components';
 import '@/styles/main.scss';

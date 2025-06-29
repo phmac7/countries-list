@@ -1,11 +1,12 @@
 import { getThemeFromServer } from '@/lib/theme/theme-server';
+import { cookies } from 'next/headers';
 
 // Mock do next/headers
 jest.mock('next/headers', () => ({
   cookies: jest.fn(),
 }));
 
-const mockCookies = jest.mocked(require('next/headers').cookies);
+const mockCookies = jest.mocked(cookies);
 
 describe('theme-server.ts - Server Functions', () => {
   beforeEach(() => {

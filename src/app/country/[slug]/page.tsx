@@ -4,7 +4,7 @@ import { CountryTemplate } from '@/templates/CountryTemplate';
 export default async function CountryPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Readonly<Promise<{ slug: string }>>;
 }) {
   const paramsSlug = (await params).slug;
   const countries = await getCountryBySlug(paramsSlug);

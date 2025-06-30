@@ -95,3 +95,19 @@ jobs:
 
       - name: Build application
         run: npm run build
+
+  sonarqube:
+    name: SonarQube
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: SonarQubeScan
+        uses: SonarSource/sonarqube-scan-action@v4
+        with:
+          args: >
+            -Dsonar.projectKey=phmac7_countries-list
+            -Dsonar.organization=phmac7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

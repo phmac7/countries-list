@@ -1,6 +1,12 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { getThemeFromClient, setThemeCookie } from '@/lib/theme/theme';
 
 export type Theme = 'light' | 'dark';
@@ -48,7 +54,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme])}
+    >
       {children}
     </ThemeContext.Provider>
   );

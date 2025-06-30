@@ -16,9 +16,6 @@ updates:
       prefix: 'chore'
       prefix-development: 'chore'
       include: 'scope'
-    secrets:
-      SONAR_TOKEN:
-        required: true
 
   # Enable version updates for GitHub Actions
   - package-ecosystem: 'github-actions'
@@ -35,6 +32,3 @@ updates:
     commit-message:
       prefix: 'ci'
       include: 'scope'
-    secrets:
-      SONAR_TOKEN:
-        required: true

@@ -118,4 +118,3 @@ jobs:
             -Dsonar.test.inclusions=**/*.test.tsx,**/*.spec.tsx,**/__tests__/**/*
             -Dsonar.tests=./src
             -Dsonar.sources=./src
-            -Dsonar.testExecutionReportPaths=test-report.xml

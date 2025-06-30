@@ -109,12 +109,3 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=phmac7_countries-list
-            -Dsonar.organization=phmac7
-            -Dsonar.sources=src
-            -Dsonar.tests=src
-            -Dsonar.inclusions=**/*.ts,**/*.tsx
-            -Dsonar.test.inclusions=**/*.test.tsx,**/*.spec.tsx
-            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info

@@ -13,7 +13,9 @@ export const GridContainer = <T,>({
   return (
     <div className={styles.gridContainer}>
       {array.map((item, index) => (
-        <div key={index}>{renderItem(item, index)}</div>
+        <div key={`grid-item-${index}-${JSON.stringify(item)}`}>
+          {renderItem(item, index)}
+        </div>
       ))}
     </div>
   );

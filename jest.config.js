@@ -15,6 +15,7 @@ const customJestConfig = {
     'src/contexts/**/*.{ts,tsx}',
     'src/templates/**/*.{ts,tsx}',
     'src/app/**/*.{ts,tsx}',
+    'src/lib/**/*.{ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/index.{ts,tsx}',
     '!src/**/*.stories.{ts,tsx}',

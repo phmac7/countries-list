@@ -1,0 +1,43 @@
+@use 'theme-mixins' as *;
+
+.selectBar {
+  display: inline-block;
+  width: 20rem;
+  position: relative;
+
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: theme-color(element-color);
+    box-shadow: 0 2px 8px theme-color(shadow-color);
+    border-radius: 8px;
+    color: theme-color(text-color);
+    padding: 1.8rem 2.4rem;
+    padding-right: 40px;
+    font-size: 1.4rem;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+
+    option {
+      background-color: theme-color(element-color);
+      box-shadow: 0 2px 8px theme-color(shadow-color);
+      color: theme-color(text-color);
+      cursor: pointer;
+    }
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    width: 5px;
+    height: 5px;
+    pointer-events: none;
+    transform: translateY(-50%) rotate(45deg);
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+  }
+}

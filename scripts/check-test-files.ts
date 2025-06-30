@@ -25,10 +25,16 @@ function findComponentFiles(dir: string): string[] {
   });
 }
 
-function getTestFilePath(componentPath: string): string {
+function hasTestFile(componentPath: string): boolean {
   const dir = path.dirname(componentPath);
-  const basename = path.basename(componentPath, path.extname(componentPath));
-  return path.join(dir, `${basename}.test.tsx`);
+  const base = path.basename(componentPath, path.extname(componentPath));
+
+  const possibleTests = [
+    path.join(dir, `${base}.test.tsx`),
+    path.join(dir, `${base}.test.ts`),
+  ];
+
+  return possibleTests.some((testPath) => fs.existsSync(testPath));
 }
 
 function checkTestFiles(): boolean {
@@ -39,8 +45,7 @@ function checkTestFiles(): boolean {
     const componentFiles = findComponentFiles(dir);
 
     componentFiles.forEach((componentPath) => {
-      const testPath = getTestFilePath(componentPath);
-      if (!fs.existsSync(testPath)) {
+      if (!hasTestFile(componentPath)) {
         allTestsExist = false;
         missingTests.push(componentPath);
       }

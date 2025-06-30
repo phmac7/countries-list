@@ -6,15 +6,15 @@
 
 [data-theme='light'] {
   body {
-    @include theme(color, text-color);
-    @include theme(background-color, background-color);
+    color: theme-color(text-color);
+    background-color: theme-color(background-color);
   }
 }
 
 [data-theme='dark'] {
   body {
-    @include theme(color, text-color);
-    @include theme(background-color, background-color);
+    color: theme-color(text-color);
+    background-color: theme-color(background-color);
   }
 }
 
@@ -33,11 +33,10 @@ body {
   font-size: $font-size-detail;
   font-weight: $font-weight-light;
   line-height: 1.5;
-  @include theme(color, text-color);
-  @include theme(background-color, background-color);
+  color: theme-color(text-color);
+  background-color: theme-color(background-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: $transition-base;
 }
 
 * {

@@ -4,7 +4,7 @@ import { useTheme } from '@/contexts';
 import styles from './ThemeToggle.module.scss';
 import { FiMoon, FiSun } from 'react-icons/fi';
 
-export const ThemeToggle = () => {
+export const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (

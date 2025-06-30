@@ -99,15 +99,21 @@ jobs:
   sonarqube:
     name: SonarQube
     runs-on: ubuntu-latest
+    needs: [test]
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Download coverage report
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
       - name: SonarQubeScan
         uses: SonarSource/sonarqube-scan-action@v4
-        with:
-          args: >
-            -Dsonar.projectKey=phmac7_countries-list
-            -Dsonar.organization=phmac7
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: >
+            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info

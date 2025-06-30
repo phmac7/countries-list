@@ -1,27 +1,55 @@
-import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from '@/contexts';
-import Page from '@/app/(Home)/page';
-import type { ImageProps } from 'next/image';
+import { render, screen, waitFor } from '@testing-library/react';
+import Home from '@/app/(Home)/page';
+import { getCountriesSummary } from '@/lib/countries/getCountries';
+import { HomeTemplate } from '@/templates';
+import styles from './page.module.scss';
 
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: ({ src, alt, ...props }: ImageProps) => {
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    return <img src={src as string} alt={alt} {...props} />;
-  },
+jest.mock('@/lib/countries/getCountries', () => ({
+  getCountriesSummary: jest.fn(),
 }));
 
-describe('Home Page', () => {
-  const renderWithTheme = () => {
-    return render(
-      <ThemeProvider>
-        <Page />
-      </ThemeProvider>
-    );
-  };
+jest.mock('@/templates', () => ({
+  HomeTemplate: jest.fn(({ countries }) => (
+    <div data-testid="mock-home-template">{JSON.stringify(countries)}</div>
+  )),
+}));
 
-  it('shows home content', () => {
-    renderWithTheme();
+describe('Home page', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (getCountriesSummary as jest.Mock).mockResolvedValue([]);
+  });
+
+  it('renders the HomeTemplate with countries data and applies styles', async () => {
+    const mockCountries = [{ name: 'Brazil' }, { name: 'Canada' }];
+    (getCountriesSummary as jest.Mock).mockResolvedValue(mockCountries);
+
+    render(await Home());
+
+    expect(getCountriesSummary).toHaveBeenCalledTimes(1);
+
+    await waitFor(() => {
+      expect(HomeTemplate).toHaveBeenCalledTimes(1);
+    });
+
+    const homeContentDiv = screen.getByTestId('home-content');
+    expect(homeContentDiv).toBeInTheDocument();
+    expect(homeContentDiv).toHaveClass(styles.page);
+
+    expect(screen.getByTestId('mock-home-template')).toBeInTheDocument();
+  });
+
+  it('handles empty countries data gracefully', async () => {
+    (getCountriesSummary as jest.Mock).mockResolvedValue([]);
+
+    render(await Home());
+
+    await waitFor(() => {
+      expect(getCountriesSummary).toHaveBeenCalledTimes(1);
+      expect(HomeTemplate).toHaveBeenCalledTimes(1);
+    });
+
     expect(screen.getByTestId('home-content')).toBeInTheDocument();
+    expect(screen.getByTestId('home-content')).toHaveClass(styles.page);
   });
 });

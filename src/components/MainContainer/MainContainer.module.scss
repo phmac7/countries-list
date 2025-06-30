@@ -2,7 +2,7 @@
 @use 'breakpoints' as *;
 
 .mainContainer {
-  padding: $vertical-spacing-desktop $horizontal-spacing-desktop;
+  padding: $vertical-spacing-desktop-xl $horizontal-spacing-desktop;
   position: relative;
 
   @include mobile {
@@ -10,7 +10,7 @@
   }
 
   &__content {
-    max-width: 144rem;
+    max-width: $container-max-width;
     margin: 0 auto;
   }
 }

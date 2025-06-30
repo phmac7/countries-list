@@ -18,7 +18,7 @@ describe('ThemeToggle', () => {
     jest.clearAllMocks();
   });
 
-  it('deve renderizar o botão com texto e ícone para tema light', () => {
+  it('should render button with text and icon for light theme', () => {
     mockUseTheme.mockReturnValue({ theme: 'light', toggleTheme: jest.fn() });
     const { container } = render(<ActualThemeToggle />);
     expect(screen.getByRole('button')).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('ThemeToggle', () => {
     expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
-  it('deve renderizar o botão com texto e ícone para tema dark', () => {
+  it('should render button with text and icon for dark theme', () => {
     mockUseTheme.mockReturnValue({ theme: 'dark', toggleTheme: jest.fn() });
     const { container } = render(<ActualThemeToggle />);
     expect(screen.getByText(/Light Mode/i)).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('ThemeToggle', () => {
     expect(container.querySelector('svg')).toBeInTheDocument();
   });
 
-  it('deve chamar toggleTheme ao clicar no botão', () => {
+  it('should call toggleTheme when clicking the button', () => {
     const toggleTheme = jest.fn();
     mockUseTheme.mockReturnValue({ theme: 'light', toggleTheme });
     render(<ActualThemeToggle />);

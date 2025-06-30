@@ -1,6 +1,14 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
 .mainContainer {
-  padding: 2rem 8rem;
+  padding: $vertical-spacing-desktop $horizontal-spacing-desktop;
   position: relative;
+
+  @include mobile {
+    padding: $vertical-spacing-mobile $horizontal-spacing-mobile;
+  }
+
   &__content {
     max-width: 144rem;
     margin: 0 auto;

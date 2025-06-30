@@ -116,10 +116,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=phmac7_countries-list
-            -Dsonar.organization=phmac7
-            -Dsonar.inclusions=**/*.ts,**/*.tsx
-            -Dsonar.test.inclusions=**/*.test.tsx,**/*.spec.tsx,**/__tests__/**/*
-            -Dsonar.coverage.exclusions=**/node_modules/**,**/*.d.ts,**/*.test.tsx,**/*.spec.tsx,**/__tests__/**/*
             -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
-            -Dsonar.log.level=DEBUG

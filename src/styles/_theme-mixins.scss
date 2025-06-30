@@ -1,4 +1,3 @@
-// Mapa de cores por tema
 $themes: (
   light: (
     text-color: #111517,
@@ -20,17 +19,10 @@ $themes: (
   ),
 );
 
-// Função para obter cor do tema
 @function theme-color($color-name) {
   @return var(--#{$color-name});
 }
 
-// Mixin para aplicar tema
-@mixin theme($property, $color-name) {
-  #{$property}: theme-color($color-name);
-}
-
-// Mixin para criar variáveis CSS
 @mixin generate-theme-variables {
   :root {
     @each $theme-name, $theme-colors in $themes {

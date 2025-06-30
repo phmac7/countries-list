@@ -8,7 +8,7 @@ $desktop-width: 1440px;
 
 // Responsive Breakpoints (for development)
 $breakpoint-mobile: 520px;
-$breakpoint-tablet: 768px;
+$breakpoint-tablet: 850px;
 $breakpoint-desktop: 1440px;
 
 // ========================================
@@ -22,7 +22,7 @@ $breakpoint-desktop: 1440px;
 }
 
 @mixin tablet {
-  @media (min-width: $breakpoint-tablet) {
+  @media (max-width: $breakpoint-tablet) {
     @content;
   }
 }

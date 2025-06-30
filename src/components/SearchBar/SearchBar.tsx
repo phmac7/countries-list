@@ -11,7 +11,7 @@ export const SearchBar = ({
   placeholder = 'Search for a country...',
   setSearch,
   search,
-}: SearchBarProps) => {
+}: Readonly<SearchBarProps>) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };

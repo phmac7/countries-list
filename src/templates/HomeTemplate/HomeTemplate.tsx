@@ -1,58 +1,59 @@
 'use client';
-import { SearchBar } from '@/components';
-import React, { useState } from 'react';
+import { ArticleCard, GridContainer, SearchBar, SelectBar } from '@/components';
+import React, { useMemo, useState } from 'react';
+import styles from './HomeTemplate.module.scss';
+import { CountrySummary } from '@/types/data';
+import { normalizeCountry } from './utils/normalizeCountries';
 
-export const HomeTemplate: React.FC = () => {
-  const mockCountries = [
-    { name: 'Germany', population: 81700, region: 'Europe', capital: 'Berlim' },
-    { name: 'France', population: 67000, region: 'America', capital: 'Paris' },
-    { name: 'Italy', population: 60000, region: 'Asia', capital: 'Rome' },
-    { name: 'Spain', population: 47000, region: 'Europe', capital: 'Madrid' },
-    {
-      name: 'Portugal',
-      population: 10000,
-      region: 'Europe',
-      capital: 'Lisboa',
-    },
-  ];
-
+export const HomeTemplate: React.FC<{ countries: CountrySummary[] }> = ({
+  countries,
+}) => {
   const uniqueRegions = [
-    ...new Set(mockCountries.map((country) => country.region)),
+    ...new Set(countries?.map((country) => country.region)),
   ];
 
   const [search, setSearch] = useState('');
   const [region, setRegion] = useState('all');
 
-  const filteredCountries = mockCountries.filter((country) => {
-    const matchesSearch = country.name
-      .toLowerCase()
-      .includes(search.toLowerCase());
-    const matchesRegion = region === 'all' || country.region === region;
-    return matchesSearch && matchesRegion;
-  });
+  const filteredCountries = useMemo(
+    () =>
+      countries.filter((country) => {
+        const matchesSearch =
+          typeof country.name === 'string'
+            ? country.name.toLowerCase().includes(search.toLowerCase())
+            : country.name.common?.toLowerCase().includes(search.toLowerCase());
+        const matchesRegion = region === 'all' || country.region === region;
+        return matchesSearch && matchesRegion;
+      }),
+    [countries, search, region]
+  );
 
   return (
-    <div>
-      <div>
-        <div>
-          <SearchBar search={search} setSearch={setSearch} />
-        </div>
-        <div>
-          <select value={region} onChange={(e) => setRegion(e.target.value)}>
-            <option value="all">Filter by Region</option>
-            {uniqueRegions.map((region) => (
-              <option key={region} value={region}>
-                {region}
-              </option>
-            ))}
-          </select>
-        </div>
+    <div className={styles.homeTemplate}>
+      <div className={styles.homeTemplate__filterContainer}>
+        <SearchBar search={search} setSearch={setSearch} />
+        <SelectBar
+          region={region}
+          setRegion={setRegion}
+          uniqueRegions={uniqueRegions}
+        />
       </div>
-      <ul>
-        {filteredCountries.map((country) => (
-          <li key={country.name}>{country.name}</li>
-        ))}
-      </ul>
+      <div className={styles.homeTemplate__gridContent}>
+        <GridContainer
+          array={filteredCountries}
+          renderItem={(country) => {
+            const data = normalizeCountry(country);
+            return (
+              <ArticleCard
+                key={country.cca3}
+                {...data}
+                population={country.population}
+                region={country.region}
+              />
+            );
+          }}
+        />
+      </div>
     </div>
   );
 };

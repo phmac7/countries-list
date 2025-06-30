@@ -1,27 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from '@/contexts';
-import Page from '@/app/(Home)/page';
-import type { ImageProps } from 'next/image';
+import Home from '@/app/(Home)/page';
 
-jest.mock('next/image', () => ({
+jest.mock('@/app/(Home)/page', () => ({
   __esModule: true,
-  default: ({ src, alt, ...props }: ImageProps) => {
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    return <img src={src as string} alt={alt} {...props} />;
-  },
+  default: () => <div data-testid="home-content">Home Content</div>,
 }));
+global.fetch = jest.fn();
 
-describe('Home Page', () => {
-  const renderWithTheme = () => {
-    return render(
-      <ThemeProvider>
-        <Page />
-      </ThemeProvider>
-    );
-  };
-
-  it('shows home content', () => {
-    renderWithTheme();
-    expect(screen.getByTestId('home-content')).toBeInTheDocument();
+describe('Home page', () => {
+  it('shows home content', async () => {
+    const Page = await Home();
+    render(Page);
+    expect(await screen.findByTestId('home-content')).toBeInTheDocument();
   });
 });

@@ -1,0 +1,32 @@
+@use 'theme-mixins' as *;
+@use 'variables' as *;
+
+.articleCard {
+  display: flex;
+  flex-direction: column;
+  background-color: theme-color(element-color);
+  border-radius: 0.8rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
+
+  &__content {
+    padding: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    font-weight: $font-weight-extrabold;
+  }
+
+  &__text {
+    font-size: $font-size-homepage;
+    margin-bottom: 0.4rem;
+  }
+
+  &__textLabel {
+    font-size: $font-size-homepage;
+    font-weight: $font-weight-semibold;
+  }
+}

@@ -7,8 +7,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const userAgent = request.headers.get('user-agent') || '';
-  const acceptLanguage = request.headers.get('accept-language') || '';
+  const userAgent = request.headers.get('user-agent') ?? '';
+  const acceptLanguage = request.headers.get('accept-language') ?? '';
   const prefersColorScheme = request.headers.get('sec-ch-prefers-color-scheme');
 
   let theme = 'light';

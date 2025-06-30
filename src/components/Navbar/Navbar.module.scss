@@ -4,7 +4,7 @@
 
 .navbar {
   padding: $vertical-spacing-desktop $horizontal-spacing-desktop;
-  @include theme(background-color, element-color);
+  background-color: theme-color(element-color);
   box-shadow: 0 4px 4px theme-color(shadow-color);
 
   @include mobile {
@@ -13,7 +13,7 @@
 
   &__container {
     margin: 0 auto;
-    max-width: 144rem;
+    max-width: $container-max-width;
     display: flex;
     justify-content: space-between;
     align-items: center;

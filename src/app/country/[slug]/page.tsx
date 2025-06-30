@@ -9,5 +9,9 @@ export default async function CountryPage({
   const paramsSlug = (await params).slug;
   const countries = await getCountryBySlug(paramsSlug);
 
+  if (!countries || countries.length === 0) {
+    throw new Error('Country not found');
+  }
+
   return <CountryTemplate country={countries[0]} />;
 }

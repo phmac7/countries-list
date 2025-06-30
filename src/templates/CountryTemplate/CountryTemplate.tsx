@@ -14,7 +14,7 @@ export const CountryTemplate: React.FC<CountryTemplateProps> = ({
 }) => {
   return (
     <div className={styles.countryTemplate}>
-      <h1>{country?.name?.common}</h1>
+      {country?.name?.common && <h1>{country.name.common}</h1>}
     </div>
   );
 };

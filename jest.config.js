@@ -31,6 +31,7 @@ const customJestConfig = {
   testMatch: [
     '<rootDir>/src/**/*.test.{ts,tsx}',
   ],
+  coverageReporters: ['lcov', 'text-summary']
 };
 
 export default createJestConfig(customJestConfig); 

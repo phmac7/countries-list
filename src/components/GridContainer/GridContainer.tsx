@@ -11,7 +11,7 @@ export const GridContainer = <T,>({
   renderItem,
 }: Readonly<GridContainerProps<T>>) => {
   return (
-    <div className={styles.gridContainer}>
+    <div className={styles.gridContainer} data-testid="grid-container">
       {array.map((item, index) => (
         <div key={`grid-item-${index}-${JSON.stringify(item)}`}>
           {renderItem(item, index)}

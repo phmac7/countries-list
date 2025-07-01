@@ -6,8 +6,8 @@ export default async function CountryPage({
 }: {
   params: Readonly<Promise<{ slug: string }>>;
 }) {
-  const paramsSlug = (await params).slug;
-  const countries = await getCountryBySlug(paramsSlug);
+  const paramsCca3 = (await params).slug;
+  const countries = await getCountryBySlug(paramsCca3);
 
   if (!countries || countries.length === 0) {
     throw new Error('Country not found');

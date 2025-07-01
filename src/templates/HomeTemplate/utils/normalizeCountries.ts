@@ -15,7 +15,7 @@ export const normalizeCountry = (country: CountrySummary) => {
     title: name,
     imageSrc: flag,
     imageAlt: flagAlt,
-    slug: name,
+    cca3: country.cca3,
     capital,
   };
 };

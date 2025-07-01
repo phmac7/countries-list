@@ -15,7 +15,7 @@ describe('getCountries', () => {
     const result = await getCountriesSummary();
     expect(result).toEqual(mockData);
     expect(fetch).toHaveBeenCalledWith(
-      'https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital',
+      'https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital,cca3',
       { cache: 'force-cache' }
     );
   });

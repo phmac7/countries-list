@@ -11,7 +11,7 @@ describe('ArticleCard', () => {
         population={213993437}
         region="Americas"
         capital="Brasília"
-        slug="brazil-title"
+        cca3="BRA"
       />
     );
     expect(screen.getByText('BrazilTitle')).toBeInTheDocument();
@@ -29,10 +29,10 @@ describe('ArticleCard', () => {
         population={213993437}
         region="Americas"
         capital="Brasília"
-        slug="brazil-title"
+        cca3="BRA"
       />
     );
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', '/country/brazil-title');
+    expect(link).toHaveAttribute('href', '/country/BRA');
   });
 });

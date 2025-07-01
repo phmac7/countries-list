@@ -10,7 +10,7 @@ interface ArticleCardProps {
   population: number;
   region: string;
   capital: string;
-  slug: string;
+  cca3: string;
 }
 
 export const ArticleCard: React.FC<Readonly<ArticleCardProps>> = ({
@@ -20,11 +20,11 @@ export const ArticleCard: React.FC<Readonly<ArticleCardProps>> = ({
   population,
   region,
   capital,
-  slug,
+  cca3,
 }) => {
   return (
     <article className={styles.articleCard}>
-      <Link href={`/country/${slug.split(' ').join('-')}`}>
+      <Link href={`/country/${cca3}`}>
         <div className={styles.articleCard__image}>
           <Image src={imageSrc} alt={imageAlt} width={264} height={160} />
         </div>

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { middleware } from '../../../middleware';
+import { middleware } from '../../middleware';
 
 jest.mock('next/server', () => ({
   NextResponse: {
@@ -21,6 +21,7 @@ describe('middleware', () => {
 
   it('should set theme cookie when no theme cookie exists', () => {
     const mockRequest = {
+      nextUrl: { pathname: '/' },
       cookies: {
         get: jest.fn().mockReturnValue(undefined),
       },
@@ -55,6 +56,7 @@ describe('middleware', () => {
 
   it('should not set theme cookie when theme cookie already exists', () => {
     const mockRequest = {
+      nextUrl: { pathname: '/' },
       cookies: {
         get: jest.fn().mockReturnValue({ value: 'dark' }),
       },
@@ -78,6 +80,7 @@ describe('middleware', () => {
 
   it('should detect dark theme preference from user agent', () => {
     const mockRequest = {
+      nextUrl: { pathname: '/' },
       cookies: {
         get: jest.fn().mockReturnValue(undefined),
       },
@@ -110,6 +113,7 @@ describe('middleware', () => {
 
   it('should detect dark theme preference from accept-language', () => {
     const mockRequest = {
+      nextUrl: { pathname: '/' },
       cookies: {
         get: jest.fn().mockReturnValue(undefined),
       },
@@ -142,6 +146,7 @@ describe('middleware', () => {
 
   it('should detect dark theme preference from sec-ch-prefers-color-scheme', () => {
     const mockRequest = {
+      nextUrl: { pathname: '/' },
       cookies: {
         get: jest.fn().mockReturnValue(undefined),
       },
@@ -178,6 +183,7 @@ describe('middleware', () => {
     process.env.NODE_ENV = 'production';
 
     const mockRequest = {
+      nextUrl: { pathname: '/' },
       cookies: {
         get: jest.fn().mockReturnValue(undefined),
       },
@@ -215,6 +221,7 @@ describe('middleware', () => {
 
   it('should handle missing headers gracefully', () => {
     const mockRequest = {
+      nextUrl: { pathname: '/' },
       cookies: {
         get: jest.fn().mockReturnValue(undefined),
       },

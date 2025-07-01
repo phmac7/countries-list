@@ -2,6 +2,7 @@
 
 import React, {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -44,14 +45,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     root.setAttribute('data-theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     setThemeCookie(newTheme);
     if (typeof window !== 'undefined') {
       localStorage.setItem('theme', newTheme);
     }
-  };
+  }, [theme]);
 
   return (
     <ThemeContext.Provider

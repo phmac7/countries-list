@@ -7,6 +7,7 @@ describe('normalizeCountry', () => {
       name: { common: 'Brazil' },
       flags: { png: 'brazil.png', alt: 'Brazilian flag' },
       capital: ['Brasília'],
+      cca3: 'BRA',
     } as never;
 
     const result = normalizeCountry(country);
@@ -15,7 +16,7 @@ describe('normalizeCountry', () => {
       title: 'Brazil',
       imageSrc: 'brazil.png',
       imageAlt: 'Brazilian flag',
-      slug: 'Brazil',
+      cca3: 'BRA',
       capital: 'Brasília',
     });
   });
@@ -25,6 +26,7 @@ describe('normalizeCountry', () => {
       name: 'Argentina',
       flags: 'argentina.png',
       capital: 'Buenos Aires',
+      cca3: 'ARG',
     } as never;
 
     const result = normalizeCountry(country);
@@ -33,7 +35,7 @@ describe('normalizeCountry', () => {
       title: 'Argentina',
       imageSrc: 'argentina.png',
       imageAlt: 'argentina.png',
-      slug: 'Argentina',
+      cca3: 'ARG',
       capital: 'Buenos Aires',
     });
   });

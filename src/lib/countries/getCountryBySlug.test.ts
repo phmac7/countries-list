@@ -18,9 +18,12 @@ describe('getCountryBySlug', () => {
 
     const result = await getCountryBySlug('brazil');
     expect(result).toEqual(mockCountryData);
-    expect(global.fetch).toHaveBeenCalledWith('https://restcountries.com/v3.1/alpha/brazil', {
-      cache: 'force-cache',
-    });
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://restcountries.com/v3.1/alpha/brazil',
+      {
+        cache: 'force-cache',
+      }
+    );
   });
 
   it('should throw an error when fetch is not successful', async () => {
@@ -28,9 +31,14 @@ describe('getCountryBySlug', () => {
       ok: false,
     });
 
-    await expect(getCountryBySlug('invalid-country')).rejects.toThrow('Erro ao buscar o país');
-    expect(global.fetch).toHaveBeenCalledWith('https://restcountries.com/v3.1/alpha/invalid-country', {
-      cache: 'force-cache',
-    });
+    await expect(getCountryBySlug('invalid-country')).rejects.toThrow(
+      'Erro ao buscar o país'
+    );
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://restcountries.com/v3.1/alpha/invalid-country',
+      {
+        cache: 'force-cache',
+      }
+    );
   });
 });

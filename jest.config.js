@@ -18,6 +18,7 @@ const customJestConfig = {
     'src/lib/**/*.{ts,tsx}',
     'src/__tests__/**/*.{ts,tsx}',
     'src/middleware.ts',
+    'src/hooks/**/*.{ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/index.{ts,tsx}',
     '!src/**/*.stories.{ts,tsx}',

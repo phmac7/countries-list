@@ -6,7 +6,7 @@ export default async function Home() {
   const countries = await getCountriesSummary();
   return (
     <div className={styles.page} data-testid="home-content">
-      <HomeTemplate countries={countries} />;
+      <HomeTemplate countries={countries} />
     </div>
   );
 }

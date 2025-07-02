@@ -1,6 +1,7 @@
 @use 'variables' as *;
 @use 'breakpoints' as *;
 @use 'theme-mixins' as *;
+@use 'typography' as *;
 
 @include generate-theme-variables;
 

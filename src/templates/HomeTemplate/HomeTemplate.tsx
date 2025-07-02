@@ -30,7 +30,11 @@ export const HomeTemplate = ({ countries }: HomeTemplateProps) => {
         setRegion={setRegion}
         uniqueRegions={uniqueRegions}
       />
-      <CountriesGrid countries={filteredCountries} isFiltering={isFiltering} />
+      <CountriesGrid
+        key={`${search}-${region}`}
+        countries={filteredCountries}
+        isFiltering={isFiltering}
+      />
     </div>
   );
 };

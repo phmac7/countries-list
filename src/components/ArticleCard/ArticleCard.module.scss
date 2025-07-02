@@ -7,17 +7,32 @@
   background-color: theme-color(element-color);
   border-radius: 0.8rem;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
+  height: 100%;
+
+  &__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 264/160;
+    overflow: hidden;
+    border-radius: 0.8rem 0.8rem 0 0;
+
+    img {
+      object-fit: cover;
+    }
+  }
 
   &__content {
     padding: 2.4rem;
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
+    flex: 1;
   }
 
   &__title {
     font-size: 1.8rem;
     font-weight: $font-weight-extrabold;
+    min-height: 2.7rem;
   }
 
   &__text {

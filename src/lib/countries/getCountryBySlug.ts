@@ -3,6 +3,6 @@ export const getCountryBySlug = async (cca3: string) => {
     cache: 'force-cache',
   });
 
-  if (!res.ok) throw new Error('Erro ao buscar o país');
+  if (!res.ok) throw new Error('Error fetching country');
   return res.json();
 };

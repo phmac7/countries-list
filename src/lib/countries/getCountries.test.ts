@@ -16,7 +16,14 @@ describe('getCountries', () => {
     expect(result).toEqual(mockData);
     expect(fetch).toHaveBeenCalledWith(
       'https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital,cca3',
-      { cache: 'force-cache' }
+      {
+        next: {
+          revalidate: 3600,
+        },
+        headers: {
+          'Cache-Control': 'public, max-age=3600, must-revalidate',
+        },
+      }
     );
   });
 
@@ -24,7 +31,7 @@ describe('getCountries', () => {
     (fetch as jest.Mock).mockResolvedValue({ ok: false });
 
     await expect(getCountriesSummary()).rejects.toThrow(
-      'Erro ao buscar países'
+      'Error fetching countries'
     );
   });
 });

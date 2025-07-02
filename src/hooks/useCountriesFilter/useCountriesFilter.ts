@@ -1,36 +1,11 @@
 import { CountrySummary } from '@/types/data';
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useDeferredValue,
-  useRef,
-} from 'react';
-
-const useDebounce = <T>(value: T, delay: number): T => {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-};
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 
 export const useCountriesFilter = (countries: CountrySummary[]) => {
   const [search, setSearch] = useState('');
   const [region, setRegion] = useState('all');
   const [isFiltering, setIsFiltering] = useState(false);
   const isFirstRender = useRef(true);
-
-  const debouncedSearch = useDebounce(search, 300);
 
   const uniqueRegions = useMemo(
     () => [...new Set(countries?.map((country) => country.region))],
@@ -51,11 +26,9 @@ export const useCountriesFilter = (countries: CountrySummary[]) => {
   );
 
   const filteredCountries = useMemo(
-    () => filterCountries(countries, debouncedSearch, region),
-    [countries, debouncedSearch, region, filterCountries]
+    () => filterCountries(countries, search, region),
+    [countries, search, region, filterCountries]
   );
-
-  const deferredFilteredCountries = useDeferredValue(filteredCountries);
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -75,7 +48,7 @@ export const useCountriesFilter = (countries: CountrySummary[]) => {
     region,
     setRegion,
     isFiltering,
-    filteredCountries: deferredFilteredCountries,
+    filteredCountries: filteredCountries,
     uniqueRegions,
   };
 };

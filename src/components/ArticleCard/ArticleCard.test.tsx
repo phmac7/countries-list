@@ -15,7 +15,7 @@ describe('ArticleCard', () => {
       />
     );
     expect(screen.getByText('BrazilTitle')).toBeInTheDocument();
-    expect(screen.getByText('213993437')).toBeInTheDocument();
+    expect(screen.getByText('213.993.437')).toBeInTheDocument();
     expect(screen.getByText('Americas')).toBeInTheDocument();
     expect(screen.getByText('Brasília')).toBeInTheDocument();
     expect(screen.getByText('BrazilTitle')).toBeInTheDocument();

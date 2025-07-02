@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const currentPathname = request.nextUrl.pathname;
-  if (currentPathname === '/country') {
-    return NextResponse.redirect(new URL('/', request.url));
-  }
-
   const themeCookie = request.cookies.get('theme');
 
   if (themeCookie) {

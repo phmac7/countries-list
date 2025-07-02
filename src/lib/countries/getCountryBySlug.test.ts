@@ -32,7 +32,7 @@ describe('getCountryBySlug', () => {
     });
 
     await expect(getCountryBySlug('invalid-country')).rejects.toThrow(
-      'Erro ao buscar o país'
+      'Error fetching country'
     );
     expect(global.fetch).toHaveBeenCalledWith(
       'https://restcountries.com/v3.1/alpha/invalid-country',

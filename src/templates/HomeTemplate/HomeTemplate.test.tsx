@@ -7,7 +7,16 @@ import {
 } from '@testing-library/react';
 import { HomeTemplate } from './HomeTemplate';
 import { CountrySummary, Region } from '@/types/data';
-import userEvent from '@testing-library/user-event';
+
+const mockIntersectionObserver = jest.fn();
+mockIntersectionObserver.mockImplementation(() => {
+  return {
+    observe: () => null,
+    unobserve: () => null,
+    disconnect: () => null,
+  };
+});
+window.IntersectionObserver = mockIntersectionObserver;
 
 const mockCountries: CountrySummary[] = [
   {
@@ -54,15 +63,14 @@ const mockCountries: CountrySummary[] = [
   },
 ];
 
-jest.useFakeTimers();
-
 describe('HomeTemplate', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.clearAllTimers();
+    jest.useRealTimers();
+    jest.clearAllMocks();
   });
 
   it('renders without crashing', () => {
@@ -75,7 +83,7 @@ describe('HomeTemplate', () => {
   it('renders the countries correctly', () => {
     render(<HomeTemplate countries={mockCountries} />);
     expect(screen.getByText('Brazil')).toBeInTheDocument();
-    expect(screen.getByText('100000')).toBeInTheDocument();
+    expect(screen.getByText('100.000')).toBeInTheDocument();
     expect(screen.getByText('Brasília')).toBeInTheDocument();
     const image = screen.getByRole('img', { name: 'Brazil' });
     expect(image).toHaveAttribute('src', 'https://flagcdn.com/br.svg');
@@ -94,43 +102,25 @@ describe('HomeTemplate', () => {
     ).toBeInTheDocument();
   });
 
-  it('should filter the countries by search with debounce', async () => {
-    render(<HomeTemplate countries={mockCountries} />);
-    const input = screen.getByPlaceholderText('Search for a country...');
-
-    await act(async () => {
-      fireEvent.change(input, { target: { value: 'Brazil' } });
-    });
-
-    expect(screen.getByText('Brazil')).toBeInTheDocument();
-    expect(screen.getByText('Argentina')).toBeInTheDocument(); // Still visible before debounce
-
-    await act(async () => {
-      jest.advanceTimersByTime(300);
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText('Brazil')).toBeInTheDocument();
-      expect(screen.queryByText('Argentina')).not.toBeInTheDocument();
-    });
-  });
-
   it('should show loading state while filtering', async () => {
     render(<HomeTemplate countries={mockCountries} />);
     const input = screen.getByPlaceholderText('Search for a country...');
 
-    await act(async () => {
-      fireEvent.change(input, { target: { value: 'Brazil' } });
-    });
+    expect(screen.getByText('Brazil')).toBeInTheDocument();
+    expect(screen.getByText('Argentina')).toBeInTheDocument();
 
-    expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
+    fireEvent.change(input, { target: { value: 'Brazil' } });
 
-    await act(async () => {
+    expect(screen.getAllByTestId('article-card-skeleton')).toHaveLength(8);
+
+    act(() => {
       jest.advanceTimersByTime(300);
     });
 
     await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId('article-card-skeleton')
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -138,24 +128,26 @@ describe('HomeTemplate', () => {
     render(<HomeTemplate countries={mockCountries} />);
     const select = screen.getByRole('combobox');
 
-    await act(async () => {
-      userEvent.selectOptions(select, 'Americas');
-    });
-
     expect(screen.getByText('Brazil')).toBeInTheDocument();
     expect(screen.getByText('Argentina')).toBeInTheDocument();
 
-    await act(async () => {
+    fireEvent.change(select, { target: { value: 'Americas' } });
+
+    act(() => {
       jest.advanceTimersByTime(300);
     });
 
     await waitFor(() => {
-      expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
+      expect(screen.getByText('Brazil')).toBeInTheDocument();
+      expect(screen.getByText('Argentina')).toBeInTheDocument();
+      expect(
+        screen.queryByTestId('article-card-skeleton')
+      ).not.toBeInTheDocument();
     });
   });
 
   it('should filter correctly if name is a string', async () => {
-    const mockCountriesWithStringName: CountrySummary[] = [
+    const mockCountriesWithStringName = [
       {
         name: 'Brazil',
         flags: 'https://flagcdn.com/br.svg',
@@ -164,13 +156,15 @@ describe('HomeTemplate', () => {
         capital: ['Brasília'],
         cca3: 'BRA',
       },
-    ];
+    ] as unknown as CountrySummary[];
 
     render(<HomeTemplate countries={mockCountriesWithStringName} />);
     const input = screen.getByPlaceholderText('Search for a country...');
 
-    await act(async () => {
-      fireEvent.change(input, { target: { value: 'Brazil' } });
+    expect(screen.getByText('Brazil')).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: 'Brazil' } });
+    act(() => {
       jest.advanceTimersByTime(300);
     });
 

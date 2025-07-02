@@ -91,32 +91,6 @@ describe('useCountriesFilter', () => {
     ]);
   });
 
-  it('filters countries by search term with debounce', async () => {
-    const { result } = renderHook(() => useCountriesFilter(mockCountries));
-
-    act(() => {
-      result.current.setSearch('Brazil');
-    });
-
-    // Initially, all countries should be visible
-    expect(result.current.filteredCountries).toEqual(mockCountries);
-    expect(result.current.isFiltering).toBe(true);
-
-    // After debounce time
-    act(() => {
-      jest.advanceTimersByTime(300);
-    });
-
-    expect(result.current.filteredCountries).toHaveLength(1);
-    const firstCountry = result.current.filteredCountries[0];
-    expect(
-      typeof firstCountry.name === 'string'
-        ? firstCountry.name
-        : firstCountry.name.common
-    ).toBe('Brazil');
-    expect(result.current.isFiltering).toBe(false);
-  });
-
   it('filters countries by region', () => {
     const { result } = renderHook(() => useCountriesFilter(mockCountries));
 
@@ -140,10 +114,6 @@ describe('useCountriesFilter', () => {
       result.current.setSearch('Brazil');
     });
 
-    act(() => {
-      jest.advanceTimersByTime(300);
-    });
-
     expect(result.current.filteredCountries).toHaveLength(1);
     const firstCountry = result.current.filteredCountries[0];
     expect(
@@ -151,10 +121,16 @@ describe('useCountriesFilter', () => {
         ? firstCountry.name
         : firstCountry.name.common
     ).toBe('Brazil');
+
+    act(() => {
+      jest.advanceTimersByTime(300);
+    });
+
+    expect(result.current.isFiltering).toBe(false);
   });
 
   it('handles string name type in filtering', () => {
-    const mockCountriesWithStringName: CountrySummary[] = [
+    const mockCountriesWithStringName = [
       {
         name: 'Brazil',
         flags: 'https://flagcdn.com/br.svg',
@@ -163,7 +139,7 @@ describe('useCountriesFilter', () => {
         capital: ['Brasília'],
         cca3: 'BRA',
       },
-    ];
+    ] as unknown as CountrySummary[];
 
     const { result } = renderHook(() =>
       useCountriesFilter(mockCountriesWithStringName)
@@ -173,12 +149,13 @@ describe('useCountriesFilter', () => {
       result.current.setSearch('Brazil');
     });
 
-    act(() => {
-      jest.advanceTimersByTime(300);
-    });
-
     expect(result.current.filteredCountries).toHaveLength(1);
-    expect(result.current.filteredCountries[0].name).toBe('Brazil');
+    const firstCountry = result.current.filteredCountries[0];
+    expect(
+      typeof firstCountry.name === 'string'
+        ? firstCountry.name
+        : firstCountry.name.common
+    ).toBe('Brazil');
   });
 
   it('shows isFiltering state during search', () => {

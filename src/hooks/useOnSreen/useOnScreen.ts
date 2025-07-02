@@ -5,21 +5,21 @@ export const useOnScreen = ({
   rootMargin = '0px',
   threshold = 0,
 } = {}) => {
-  const [observer, setOserver] = useState<IntersectionObserver | undefined>();
-  const [isIntersecting, setIntersecting] = useState(false);
+  const [observer, setObserver] = useState<IntersectionObserver | undefined>();
+  const [isIntersecting, setIsIntersecting] = useState(false);
 
   const measureRef = useCallback(
     (node: Element | null) => {
       if (node) {
         const observer = new IntersectionObserver(
           ([entry]) => {
-            setIntersecting(entry.isIntersecting);
+            setIsIntersecting(entry.isIntersecting);
           },
           { root, rootMargin, threshold }
         );
 
         observer.observe(node);
-        setOserver(observer);
+        setObserver(observer);
       }
     },
     [root, rootMargin, threshold]

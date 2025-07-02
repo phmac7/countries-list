@@ -63,7 +63,7 @@ export const ArticleCard = memo(
                 <span className={styles.articleCard__textLabel}>
                   Population:
                 </span>{' '}
-                {population.toLocaleString()}
+                {population.toLocaleString('pt-BR')}
               </p>
               <p className={styles.articleCard__text}>
                 <span className={styles.articleCard__textLabel}>Region:</span>{' '}

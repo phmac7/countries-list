@@ -1,4 +1,3 @@
-
 import { renderHook, act } from '@testing-library/react';
 import { useInfiniteScroll } from './useInfiniteScroll';
 import { useOnScreen } from '@/hooks';
@@ -12,7 +11,6 @@ const mockedUseOnScreen = useOnScreen as jest.Mock;
 describe('useInfiniteScroll', () => {
   const totalItems = Array.from({ length: 50 }, (_, i) => `Item ${i + 1}`);
   const mockObserver = {
-    disconnect: jest.fn(),
     observe: jest.fn(),
     unobserve: jest.fn(),
   };
@@ -36,7 +34,9 @@ describe('useInfiniteScroll', () => {
   });
 
   it('should load the next page when element is intersecting', () => {
-    const { result, rerender } = renderHook(() => useInfiniteScroll(totalItems, 10));
+    const { result, rerender } = renderHook(() =>
+      useInfiniteScroll(totalItems, 10)
+    );
 
     mockedUseOnScreen.mockReturnValue({
       measureRef: jest.fn(),
@@ -52,11 +52,12 @@ describe('useInfiniteScroll', () => {
     expect(result.current.displayedItems).toHaveLength(20);
     expect(result.current.displayedItems).toEqual(totalItems.slice(0, 20));
     expect(result.current.hasMore).toBe(true);
-    expect(mockObserver.disconnect).toHaveBeenCalledTimes(1);
   });
 
   it('should not load more items if hasMore is false', () => {
-    const { result, rerender } = renderHook(() => useInfiniteScroll(totalItems.slice(0, 5), 10));
+    const { result, rerender } = renderHook(() =>
+      useInfiniteScroll(totalItems.slice(0, 5), 10)
+    );
 
     expect(result.current.hasMore).toBe(false);
 
@@ -72,11 +73,12 @@ describe('useInfiniteScroll', () => {
 
     expect(result.current.displayedItems).toHaveLength(5);
     expect(result.current.isLoading).toBe(false);
-    expect(mockObserver.disconnect).not.toHaveBeenCalled();
   });
 
   it('should set hasMore to false when all items are displayed', () => {
-    const { result, rerender } = renderHook(() => useInfiniteScroll(totalItems, 45));
+    const { result, rerender } = renderHook(() =>
+      useInfiniteScroll(totalItems, 45)
+    );
 
     expect(result.current.hasMore).toBe(true);
 

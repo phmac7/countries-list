@@ -9,23 +9,22 @@ export const useInfiniteScroll = <T>(
   const [displayedItems, setDisplayedItems] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(false);
-  const { measureRef, isIntersecting, observer } = useOnScreen();
+  const { measureRef, isIntersecting } = useOnScreen();
 
   useEffect(() => {
     setDisplayedItems(totalItems.slice(0, page * itemsPerPage));
     setHasMore(page * itemsPerPage < totalItems.length);
     setIsLoading(false);
-  }, [page]);
+  }, [page, itemsPerPage]);
 
   const loadMore = useCallback(() => {
-    setPage((prev) => prev + 1);
     setIsLoading(true);
+    setPage((prev) => prev + 1);
   }, []);
 
   useEffect(() => {
-    if (isIntersecting && hasMore && !isLoading) {
+    if (isIntersecting && hasMore) {
       loadMore();
-      observer?.disconnect();
     }
   }, [isIntersecting, hasMore, loadMore]);
 

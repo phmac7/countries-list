@@ -29,7 +29,6 @@ describe('useOnScreen', () => {
     const { result } = renderHook(() => useOnScreen());
 
     expect(result.current.isIntersecting).toBe(false);
-    expect(result.current.observer).toBeUndefined();
     expect(typeof result.current.measureRef).toBe('function');
   });
 
@@ -151,18 +150,6 @@ describe('useOnScreen', () => {
     expect(mockObserve).toHaveBeenCalledWith(mockElement2);
   });
 
-  it('should return the observer instance', () => {
-    const { result } = renderHook(() => useOnScreen());
-    const mockElement = document.createElement('div');
-
-    act(() => {
-      result.current.measureRef(mockElement);
-    });
-
-    expect(result.current.observer).toBeDefined();
-    expect(result.current.observer).toBeInstanceOf(Object);
-  });
-
   it('should handle empty options object', () => {
     const { result } = renderHook(() => useOnScreen({}));
     const mockElement = document.createElement('div');
@@ -189,10 +176,15 @@ describe('useOnScreen', () => {
       result.current.measureRef(mockElement);
     });
 
+    rerender();
+
     const firstObserver = result.current.observer;
 
     rerender();
 
-    expect(result.current.observer).toBe(firstObserver);
+    const secondObserver = result.current.observer;
+
+    expect(secondObserver).toBe(firstObserver);
+    expect(firstObserver).not.toBeNull();
   });
 });

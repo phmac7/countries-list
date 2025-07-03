@@ -32,11 +32,11 @@ export const CountryDetailsTemplate: React.FC<CountryTemplateProps> = ({
     <div className={styles.countryDetailsTemplate}>
       <Button label="Back" icon="FaArrowLeft" href="/" />
       <ArticleDetails
-        title={countryDetails?.name?.common || ''}
+        title={countryDetails?.name?.common ?? ''}
         description={description}
         image={countryDetails?.flags?.png}
         imageAlt={
-          countryDetails?.flags?.alt || countryDetails?.name?.common || ''
+          countryDetails?.flags?.alt ?? countryDetails?.name?.common ?? ''
         }
         chips={borderCountries}
       />

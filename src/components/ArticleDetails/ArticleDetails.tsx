@@ -49,8 +49,8 @@ export const ArticleDetails: React.FC<Readonly<ArticleDetailsProps>> = ({
       <div className={styles.articleDetails__content}>
         <h2>{title}</h2>
         <div className={styles.articleDetails__description}>
-          {description.map((item, index) => (
-            <p key={index} className={styles.articleDetails__text}>
+          {description.map((item) => (
+            <p key={item.label} className={styles.articleDetails__text}>
               <span className={styles.articleDetails__textLabel}>
                 {item.label}:
               </span>{' '}
@@ -64,9 +64,9 @@ export const ArticleDetails: React.FC<Readonly<ArticleDetailsProps>> = ({
               {chips.label}:
             </span>
             <div className={styles.articleDetails__chipsList}>
-              {chips.values.map((value, index) => (
+              {chips.values.map((value) => (
                 <Button
-                  key={index}
+                  key={value.href}
                   label={value.label}
                   href={`/country/${value.href}`}
                 />

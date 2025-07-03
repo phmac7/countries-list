@@ -11,16 +11,18 @@ type FilterSectionProps = Readonly<{
   uniqueRegions: string[];
 }>;
 
-export const FilterSection = memo<FilterSectionProps>((props) => {
-  return (
-    <div className={styles.homeTemplate__filterContainer}>
-      <SearchBar search={props.search} setSearch={props.setSearch} />
-      <SelectBar
-        region={props.region}
-        setRegion={props.setRegion}
-        uniqueRegions={props.uniqueRegions}
-      />
-    </div>
-  );
-});
+export const FilterSection = memo<FilterSectionProps>(
+  ({ region, search, setRegion, setSearch, uniqueRegions }) => {
+    return (
+      <div className={styles.homeTemplate__filterContainer}>
+        <SearchBar search={search} setSearch={setSearch} />
+        <SelectBar
+          region={region}
+          setRegion={setRegion}
+          uniqueRegions={uniqueRegions}
+        />
+      </div>
+    );
+  }
+);
 FilterSection.displayName = 'FilterSection';

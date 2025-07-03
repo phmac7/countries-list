@@ -14,11 +14,11 @@ export function middleware(request: NextRequest) {
   let theme = 'dark';
 
   if (
-    userAgent.toLowerCase().includes('dark') ||
-    acceptLanguage.toLowerCase().includes('dark') ||
-    prefersColorScheme === 'dark'
+    userAgent.toLowerCase().includes('light') ||
+    acceptLanguage.toLowerCase().includes('light') ||
+    prefersColorScheme === 'light'
   ) {
-    theme = 'dark';
+    theme = 'light';
   }
 
   const response = NextResponse.next();

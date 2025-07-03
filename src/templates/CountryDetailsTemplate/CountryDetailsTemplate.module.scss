@@ -1,0 +1,11 @@
+@use 'breakpoints' as *;
+
+.countryDetailsTemplate {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+  @include mobile {
+    gap: 6.4rem;
+  }
+}

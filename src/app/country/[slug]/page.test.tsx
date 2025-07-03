@@ -1,42 +1,98 @@
-
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import CountryPage from './page';
+import Page from './page';
 import { getCountryBySlug } from '@/lib/countries/getCountryBySlug';
-import { CountryTemplate } from '@/templates/CountryTemplate';
+import {
+  ICountryDetails,
+  Region,
+  StartOfWeek,
+  Status,
+  Side,
+  Continent,
+} from '@/types/data';
 
 jest.mock('@/lib/countries/getCountryBySlug');
-jest.mock('@/templates/CountryTemplate', () => ({
-  __esModule: true,
-  CountryTemplate: jest.fn((props) => (
-    <div data-testid="country-template">{props?.country?.name?.common}</div>
-  )),
-}));
 
-const mockGetCountryBySlug = getCountryBySlug as jest.Mock;
-const mockCountryTemplate = CountryTemplate as jest.Mock;
+const mockCountry: ICountryDetails = {
+  name: {
+    common: 'Brazil',
+    official: 'Federative Republic of Brazil',
+  },
+  population: 214000000,
+  region: Region.Americas,
+  subregion: 'South America',
+  capital: ['Brasília'],
+  tld: ['.br'],
+  currencies: {
+    BRL: {
+      name: 'Brazilian Real',
+      symbol: 'R$',
+    },
+  },
+  languages: {
+    por: 'Portuguese',
+  },
+  flags: {
+    png: '/brazil.png',
+    svg: '/brazil.svg',
+    alt: 'The flag of Brazil',
+  },
+  coatOfArms: {
+    png: '/coat.png',
+    svg: '/coat.svg',
+  },
+  startOfWeek: StartOfWeek.Monday,
+  capitalInfo: {
+    latlng: [-15.79, -47.88],
+  },
+  car: {
+    signs: ['BR'],
+    side: Side.Right,
+  },
+  continents: [Continent.SouthAmerica],
+  status: Status.OfficiallyAssigned,
+  independent: true,
+  landlocked: false,
+  unMember: true,
+  cca2: 'BR',
+  cca3: 'BRA',
+  idd: { root: '+5', suffixes: ['5'] },
+  altSpellings: ['BR', 'Brasil'],
+  latlng: [-10, -55],
+  area: 8515770,
+  demonyms: {
+    eng: { f: 'Brazilian', m: 'Brazilian' },
+    fra: { f: 'Brésilienne', m: 'Brésilien' },
+  },
+  flag: '🇧🇷',
+  maps: {
+    googleMaps: 'https://goo.gl/maps/waCKk21HeeqFzkNC9',
+    openStreetMaps: 'https://www.openstreetmap.org/relation/59470',
+  },
+  timezones: ['UTC-05:00', 'UTC-04:00', 'UTC-03:00', 'UTC-02:00'],
+  translations: {
+    por: { official: 'República Federativa do Brasil', common: 'Brasil' },
+  },
+  postalCode: {
+    format: '#####-###',
+    regex: '^(\\d{5})-(\\d{3})$',
+  },
+};
 
-describe('CountryPage', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
+describe('Country Page', () => {
+  it('renders country details', async () => {
+    (getCountryBySlug as jest.Mock).mockResolvedValue([mockCountry]);
+
+    render(await Page({ params: Promise.resolve({ slug: 'brazil' }) }));
+
+    expect(screen.getByText('Brazil')).toBeInTheDocument();
   });
 
-  it('should fetch country data and render the CountryTemplate with the correct country', async () => {
-    const mockCountry = { name: { common: 'Brazil' } };
-    mockGetCountryBySlug.mockResolvedValue([mockCountry]);
+  it('handles error when country is not found', async () => {
+    (getCountryBySlug as jest.Mock).mockResolvedValue([]);
 
-    const params = { slug: 'brazil' };
-    const page = await CountryPage({ params: Promise.resolve(params) });
-    render(page);
-
-    expect(getCountryBySlug).toHaveBeenCalledWith('brazil');
-    expect(mockCountryTemplate).toHaveBeenCalledWith({ country: mockCountry }, undefined);
-    expect(screen.getByTestId('country-template')).toHaveTextContent('Brazil');
-  });
-
-  it('should throw an error if no country is found', async () => {
-    mockGetCountryBySlug.mockResolvedValue([]);
-    const params = { slug: 'non-existent' };
-    await expect(CountryPage({ params: Promise.resolve(params) })).rejects.toThrow();
+    await expect(
+      Page({ params: Promise.resolve({ slug: 'invalid' }) })
+    ).rejects.toThrow('Country not found');
   });
 });

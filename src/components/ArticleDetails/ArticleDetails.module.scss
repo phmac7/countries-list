@@ -1,0 +1,76 @@
+@use 'theme-mixins' as *;
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.articleDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12rem;
+  align-items: center;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 4.4rem;
+  }
+
+  &__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 560/400;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 1.4rem theme-color(shadow-color);
+
+    @include tablet {
+      max-width: 400px;
+    }
+    img {
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+  }
+
+  &__description {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem 4rem;
+    max-height: 400px;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, auto);
+
+    @include tablet {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      grid-auto-flow: row;
+      gap: 3.2rem;
+      max-height: none;
+    }
+  }
+
+  &__text {
+    font-size: $font-size-detail;
+  }
+
+  &__textLabel {
+    font-size: $font-size-detail;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    align-items: center;
+  }
+
+  &__chipsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}

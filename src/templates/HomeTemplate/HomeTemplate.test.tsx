@@ -6,7 +6,7 @@ import {
   act,
 } from '@testing-library/react';
 import { HomeTemplate } from './HomeTemplate';
-import { CountrySummary, Region } from '@/types/data';
+import { ICountrySummary, Region } from '@/types/data';
 
 const mockIntersectionObserver = jest.fn();
 mockIntersectionObserver.mockImplementation(() => {
@@ -18,7 +18,7 @@ mockIntersectionObserver.mockImplementation(() => {
 });
 window.IntersectionObserver = mockIntersectionObserver;
 
-const mockCountries: CountrySummary[] = [
+const mockCountries: ICountrySummary[] = [
   {
     name: {
       common: 'Brazil',
@@ -156,7 +156,7 @@ describe('HomeTemplate', () => {
         capital: ['Brasília'],
         cca3: 'BRA',
       },
-    ] as unknown as CountrySummary[];
+    ] as unknown as ICountrySummary[];
 
     render(<HomeTemplate countries={mockCountriesWithStringName} />);
     const input = screen.getByPlaceholderText('Search for a country...');

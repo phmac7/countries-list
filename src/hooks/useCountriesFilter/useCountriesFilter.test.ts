@@ -1,8 +1,8 @@
 import { renderHook, act } from '@testing-library/react';
 import { useCountriesFilter } from './useCountriesFilter';
-import { CountrySummary, Region } from '@/types/data';
+import { ICountrySummary, Region } from '@/types/data';
 
-const mockCountries: CountrySummary[] = [
+const mockCountries: ICountrySummary[] = [
   {
     name: {
       common: 'Brazil',
@@ -139,7 +139,7 @@ describe('useCountriesFilter', () => {
         capital: ['Brasília'],
         cca3: 'BRA',
       },
-    ] as unknown as CountrySummary[];
+    ] as unknown as ICountrySummary[];
 
     const { result } = renderHook(() =>
       useCountriesFilter(mockCountriesWithStringName)

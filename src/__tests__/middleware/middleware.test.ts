@@ -214,7 +214,6 @@ describe('middleware', () => {
       maxAge: 60 * 60 * 24 * 365,
     });
 
-    // Restaurar NODE_ENV
     // @ts-expect-error - NODE_ENV is readonly but works in tests
     process.env.NODE_ENV = originalEnv;
   });

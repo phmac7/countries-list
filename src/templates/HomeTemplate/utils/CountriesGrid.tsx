@@ -1,16 +1,16 @@
 import { ArticleCard, ArticleCardSkeleton, GridContainer } from '@/components';
-import { CountrySummary } from '@/types/data';
+import { ICountrySummary } from '@/types/data';
 import { normalizeCountry } from './normalizeCountries';
 import React, { memo, useCallback } from 'react';
 import styles from '../HomeTemplate.module.scss';
 import { useInfiniteScroll } from '@/hooks';
 
 type CountriesGridProps = Readonly<{
-  countries: CountrySummary[];
+  countries: ICountrySummary[];
   isFiltering: boolean;
 }>;
 
-const CountryCard = memo<Readonly<{ country: CountrySummary }>>(
+const CountryCard = memo<Readonly<{ country: ICountrySummary }>>(
   ({ country }) => {
     const normalizedData = normalizeCountry(country);
     return (
@@ -31,7 +31,7 @@ export const CountriesGrid: React.FC<CountriesGridProps> = ({
   const { displayedItems, hasMore, measureRef } = useInfiniteScroll(countries);
 
   const renderItem = useCallback(
-    (country: CountrySummary) => (
+    (country: ICountrySummary) => (
       <CountryCard key={country.cca3} country={country} />
     ),
     []

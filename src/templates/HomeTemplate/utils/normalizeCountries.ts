@@ -1,4 +1,4 @@
-import { CountrySummary } from '@/types/data';
+import { ICountrySummary } from '@/types/data';
 
 type NormalizedCountry = {
   title: string;
@@ -9,8 +9,8 @@ type NormalizedCountry = {
 };
 
 export const normalizeCountry = (
-  country: CountrySummary
-): NormalizedCountry & Pick<CountrySummary, 'population' | 'region'> => {
+  country: ICountrySummary
+): NormalizedCountry & Pick<ICountrySummary, 'population' | 'region'> => {
   const name =
     typeof country.name === 'string' ? country.name : country.name.common;
   const flag =

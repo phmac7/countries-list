@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { CountriesGrid } from './CountriesGrid';
-import { CountrySummary, Region } from '@/types/data';
+import { ICountrySummary, Region } from '@/types/data';
 
-const mockCountries: CountrySummary[] = [
+const mockCountries: ICountrySummary[] = [
   {
     name: {
       common: 'Brazil',

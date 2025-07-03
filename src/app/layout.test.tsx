@@ -37,7 +37,6 @@ describe('RootLayout', () => {
     const children = <div data-testid="test-child">Test Content</div>;
     const layout = await RootLayout({ children });
 
-    // Check if the html element has the correct theme
     expect(layout.props['data-theme']).toBe('light');
   });
 });

@@ -6,39 +6,106 @@ describe('getCountryBySlug', () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    jest.resetAllMocks();
   });
 
-  it('should return country data when fetch is successful', async () => {
-    const mockCountryData = [{ name: { common: 'Brazil' } }];
+  it('fetches country data successfully', async () => {
+    const mockCountry = {
+      name: { common: 'Brazil' },
+      population: 214000000,
+    };
+
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve(mockCountryData),
+      json: () => Promise.resolve([mockCountry]),
     });
 
-    const result = await getCountryBySlug('brazil');
-    expect(result).toEqual(mockCountryData);
+    const result = await getCountryBySlug('BRA');
+    expect(result).toEqual([mockCountry]);
     expect(global.fetch).toHaveBeenCalledWith(
-      'https://restcountries.com/v3.1/alpha/brazil',
-      {
-        cache: 'force-cache',
-      }
+      'https://restcountries.com/v3.1/alpha/BRA',
+      expect.any(Object)
     );
   });
 
-  it('should throw an error when fetch is not successful', async () => {
+  it('throws error when fetch fails', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
     });
 
-    await expect(getCountryBySlug('invalid-country')).rejects.toThrow(
+    await expect(getCountryBySlug('INVALID')).rejects.toThrow(
       'Error fetching country'
     );
+  });
+
+  it('fetches border countries data successfully', async () => {
+    const mockCountry = {
+      name: { common: 'Brazil' },
+      borders: ['ARG', 'URY'],
+    };
+
+    const mockArgentina = {
+      name: { common: 'Argentina' },
+    };
+
+    const mockUruguay = {
+      name: { common: 'Uruguay' },
+    };
+
+    (global.fetch as jest.Mock)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve([mockCountry]),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve([mockArgentina]),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve([mockUruguay]),
+      });
+
+    const result = await getCountryBySlug('BRA');
+    expect(result[0].bordersNormalized).toEqual(['Argentina', 'Uruguay']);
+    expect(global.fetch).toHaveBeenCalledTimes(3);
     expect(global.fetch).toHaveBeenCalledWith(
-      'https://restcountries.com/v3.1/alpha/invalid-country',
-      {
-        cache: 'force-cache',
-      }
+      'https://restcountries.com/v3.1/alpha/BRA',
+      expect.any(Object)
     );
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://restcountries.com/v3.1/alpha/ARG'
+    );
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://restcountries.com/v3.1/alpha/URY'
+    );
+  });
+
+  it('handles failed border country fetch gracefully', async () => {
+    const mockCountry = {
+      name: { common: 'Brazil' },
+      borders: ['ARG', 'INVALID'],
+    };
+
+    const mockArgentina = {
+      name: { common: 'Argentina' },
+    };
+
+    (global.fetch as jest.Mock)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve([mockCountry]),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve([mockArgentina]),
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve([{}]),
+      });
+
+    const result = await getCountryBySlug('BRA');
+    expect(result[0].bordersNormalized).toEqual(['Argentina']);
   });
 });

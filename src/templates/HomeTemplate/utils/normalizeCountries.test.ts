@@ -1,9 +1,9 @@
-import { CountrySummary, Region } from '@/types/data';
+import { ICountrySummary, Region } from '@/types/data';
 import { normalizeCountry } from './normalizeCountries';
 
 describe('normalizeCountry', () => {
   it('normalizes country when name and flags are objects', () => {
-    const country: CountrySummary = {
+    const country: ICountrySummary = {
       name: {
         common: 'Brazil',
         official: 'Brazil',
@@ -39,7 +39,7 @@ describe('normalizeCountry', () => {
   });
 
   it('normalizes country when name and flags are strings', () => {
-    const country: CountrySummary = {
+    const country: ICountrySummary = {
       name: 'Argentina',
       flags: 'argentina.png',
       capital: 'Buenos Aires',
@@ -62,7 +62,7 @@ describe('normalizeCountry', () => {
   });
 
   it('handles capital as either string or string array', () => {
-    const countryArrayCapital: CountrySummary = {
+    const countryArrayCapital: ICountrySummary = {
       name: 'Chile',
       flags: 'chile.png',
       capital: ['Santiago'],
@@ -71,7 +71,7 @@ describe('normalizeCountry', () => {
       cca3: 'CHL',
     };
 
-    const countryStringCapital: CountrySummary = {
+    const countryStringCapital: ICountrySummary = {
       name: 'Chile',
       flags: 'chile.png',
       capital: 'Santiago',
@@ -85,7 +85,7 @@ describe('normalizeCountry', () => {
   });
 
   it('handles empty capital array', () => {
-    const country: CountrySummary = {
+    const country: ICountrySummary = {
       name: 'Country',
       flags: 'flag.png',
       capital: [],
@@ -99,7 +99,7 @@ describe('normalizeCountry', () => {
   });
 
   it('handles undefined capital', () => {
-    const country: CountrySummary = {
+    const country: ICountrySummary = {
       name: 'Country',
       flags: 'flag.png',
       capital: undefined as unknown as string[],
@@ -113,7 +113,7 @@ describe('normalizeCountry', () => {
   });
 
   it('uses png url as alt text when alt is missing', () => {
-    const country: CountrySummary = {
+    const country: ICountrySummary = {
       name: 'Country',
       flags: {
         png: 'flag.png',

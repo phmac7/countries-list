@@ -1,7 +1,7 @@
-import { CountrySummary } from '@/types/data';
+import { ICountrySummary } from '@/types/data';
 import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 
-export const useCountriesFilter = (countries: CountrySummary[]) => {
+export const useCountriesFilter = (countries: ICountrySummary[]) => {
   const [search, setSearch] = useState('');
   const [region, setRegion] = useState('all');
   const [isFiltering, setIsFiltering] = useState(false);
@@ -13,7 +13,7 @@ export const useCountriesFilter = (countries: CountrySummary[]) => {
   );
 
   const filterCountries = useCallback(
-    (countries: CountrySummary[], search: string, region: string) => {
+    (countries: ICountrySummary[], search: string, region: string) => {
       return countries.filter((country) => {
         const name =
           typeof country.name === 'string' ? country.name : country.name.common;

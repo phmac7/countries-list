@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
 import styles from './HomeTemplate.module.scss';
-import { CountrySummary } from '@/types/data';
+import { ICountrySummary } from '@/types/data';
 import { FilterSection } from './utils/FilterSection';
 import { CountriesGrid } from './utils/CountriesGrid';
 import { useCountriesFilter } from '@/hooks';
 
 type HomeTemplateProps = Readonly<{
-  countries: CountrySummary[];
+  countries: ICountrySummary[];
 }>;
 
 export const HomeTemplate = ({ countries }: HomeTemplateProps) => {

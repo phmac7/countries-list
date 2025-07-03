@@ -24,7 +24,7 @@ describe('getCountryBySlug', () => {
     expect(result).toEqual([mockCountry]);
     expect(global.fetch).toHaveBeenCalledWith(
       'https://restcountries.com/v3.1/alpha/BRA',
-      expect.any(Object)
+      { cache: 'force-cache' }
     );
   });
 
@@ -71,13 +71,15 @@ describe('getCountryBySlug', () => {
     expect(global.fetch).toHaveBeenCalledTimes(3);
     expect(global.fetch).toHaveBeenCalledWith(
       'https://restcountries.com/v3.1/alpha/BRA',
-      expect.any(Object)
+      { cache: 'force-cache' }
     );
     expect(global.fetch).toHaveBeenCalledWith(
-      'https://restcountries.com/v3.1/alpha/ARG'
+      'https://restcountries.com/v3.1/alpha/ARG',
+      { cache: 'force-cache' }
     );
     expect(global.fetch).toHaveBeenCalledWith(
-      'https://restcountries.com/v3.1/alpha/URY'
+      'https://restcountries.com/v3.1/alpha/URY',
+      { cache: 'force-cache' }
     );
   });
 

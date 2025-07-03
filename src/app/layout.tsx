@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-}: {
-  children: Readonly<React.ReactNode>;
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   const initialTheme = await getThemeFromServer();
 
   return (

@@ -25,6 +25,7 @@ describe('ThemeToggle', () => {
     expect(screen.getByText(/Dark Mode/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Switch to dark mode/i)).toBeInTheDocument();
     expect(container.querySelector('svg')).toBeInTheDocument();
+    expect(screen.getByRole('button')).toHaveAttribute('type', 'button');
   });
 
   it('should render button with text and icon for dark theme', () => {

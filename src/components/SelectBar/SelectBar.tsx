@@ -16,7 +16,11 @@ export const SelectBar: React.FC<Readonly<SelectBarProps>> = ({
 }) => {
   return (
     <div className={styles.selectBar}>
-      <select value={region} onChange={(e) => setRegion(e.target.value)}>
+      <select
+        aria-label={region}
+        value={region}
+        onChange={(e) => setRegion(e.target.value)}
+      >
         <option value="all">{defaultLabel}</option>
         {uniqueRegions.map((region) => (
           <option key={region} value={region}>

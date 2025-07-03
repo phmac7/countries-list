@@ -78,7 +78,7 @@ describe('middleware', () => {
     expect(result).toBe(mockResponse);
   });
 
-  it('should detect dark theme preference from user agent', () => {
+  it('should detect light theme preference from user agent', () => {
     const mockRequest = {
       nextUrl: { pathname: '/' },
       cookies: {
@@ -87,7 +87,7 @@ describe('middleware', () => {
       headers: {
         get: jest.fn().mockImplementation((header: string) => {
           if (header === 'user-agent')
-            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Dark';
+            return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Light';
           if (header === 'accept-language') return 'en-US,en;q=0.9';
           if (header === 'sec-ch-prefers-color-scheme') return undefined;
           return undefined;
@@ -106,12 +106,12 @@ describe('middleware', () => {
 
     expect(mockResponse.cookies.set).toHaveBeenCalledWith(
       'theme',
-      'dark',
+      'light',
       expect.any(Object)
     );
   });
 
-  it('should detect dark theme preference from accept-language', () => {
+  it('should detect light theme preference from accept-language', () => {
     const mockRequest = {
       nextUrl: { pathname: '/' },
       cookies: {
@@ -121,7 +121,7 @@ describe('middleware', () => {
         get: jest.fn().mockImplementation((header: string) => {
           if (header === 'user-agent')
             return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
-          if (header === 'accept-language') return 'en-US,en;q=0.9,dark';
+          if (header === 'accept-language') return 'en-US,en;q=0.9,light';
           if (header === 'sec-ch-prefers-color-scheme') return undefined;
           return undefined;
         }),
@@ -139,12 +139,12 @@ describe('middleware', () => {
 
     expect(mockResponse.cookies.set).toHaveBeenCalledWith(
       'theme',
-      'dark',
+      'light',
       expect.any(Object)
     );
   });
 
-  it('should detect dark theme preference from sec-ch-prefers-color-scheme', () => {
+  it('should detect light theme preference from sec-ch-prefers-color-scheme', () => {
     const mockRequest = {
       nextUrl: { pathname: '/' },
       cookies: {
@@ -155,7 +155,7 @@ describe('middleware', () => {
           if (header === 'user-agent')
             return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36';
           if (header === 'accept-language') return 'en-US,en;q=0.9';
-          if (header === 'sec-ch-prefers-color-scheme') return 'dark';
+          if (header === 'sec-ch-prefers-color-scheme') return 'light';
           return undefined;
         }),
       },
@@ -172,7 +172,7 @@ describe('middleware', () => {
 
     expect(mockResponse.cookies.set).toHaveBeenCalledWith(
       'theme',
-      'dark',
+      'light',
       expect.any(Object)
     );
   });

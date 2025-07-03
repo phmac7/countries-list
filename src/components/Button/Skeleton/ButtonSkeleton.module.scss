@@ -1,0 +1,9 @@
+@use 'theme-mixins' as *;
+
+.buttonSkeleton {
+  background-color: theme-color(element-color);
+  width: 100px;
+  height: 40px;
+  @include shimmer;
+  border-radius: 0.5rem;
+}

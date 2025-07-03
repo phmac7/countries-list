@@ -26,7 +26,7 @@ describe('theme-server.ts - Server Functions', () => {
       expect(result).toBe('dark');
     });
 
-    it('should return light theme when cookie is not available', async () => {
+    it('should return dark theme when cookie is not available', async () => {
       const mockCookieStore = {
         get: jest.fn().mockReturnValue(undefined),
       };
@@ -35,10 +35,10 @@ describe('theme-server.ts - Server Functions', () => {
       const result = await getThemeFromServer();
 
       expect(mockCookieStore.get).toHaveBeenCalledWith('theme');
-      expect(result).toBe('light');
+      expect(result).toBe('dark');
     });
 
-    it('should return light theme when cookie value is null', async () => {
+    it('should return dark theme when cookie value is null', async () => {
       const mockCookieStore = {
         get: jest.fn().mockReturnValue({ value: null }),
       };
@@ -46,10 +46,10 @@ describe('theme-server.ts - Server Functions', () => {
 
       const result = await getThemeFromServer();
 
-      expect(result).toBe('light');
+      expect(result).toBe('dark');
     });
 
-    it('should return light theme when cookie value is empty string', async () => {
+    it('should return dark theme when cookie value is empty string', async () => {
       const mockCookieStore = {
         get: jest.fn().mockReturnValue({ value: '' }),
       };
@@ -57,18 +57,18 @@ describe('theme-server.ts - Server Functions', () => {
 
       const result = await getThemeFromServer();
 
-      expect(result).toBe('light');
+      expect(result).toBe('dark');
     });
 
-    it('should return light theme when cookies() throws an error', async () => {
+    it('should return dark theme when cookies() throws an error', async () => {
       mockCookies.mockRejectedValue(new Error('Cookies error'));
 
       const result = await getThemeFromServer();
 
-      expect(result).toBe('light');
+      expect(result).toBe('dark');
     });
 
-    it('should return light theme when cookieStore.get() throws an error', async () => {
+    it('should return dark theme when cookieStore.get() throws an error', async () => {
       const mockCookieStore = {
         get: jest.fn().mockImplementation(() => {
           throw new Error('Cookie store error');
@@ -78,10 +78,10 @@ describe('theme-server.ts - Server Functions', () => {
 
       const result = await getThemeFromServer();
 
-      expect(result).toBe('light');
+      expect(result).toBe('dark');
     });
 
-    it('should return light theme for invalid theme values', async () => {
+    it('should return dark theme for invalid theme values', async () => {
       const mockCookieStore = {
         get: jest.fn().mockReturnValue({ value: 'invalid-theme' }),
       };
@@ -89,7 +89,7 @@ describe('theme-server.ts - Server Functions', () => {
 
       const result = await getThemeFromServer();
 
-      expect(result).toBe('light');
+      expect(result).toBe('dark');
     });
 
     it('should return dark theme when cookie value is dark', async () => {

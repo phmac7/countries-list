@@ -45,7 +45,7 @@ describe('middleware', () => {
 
     const result = middleware(mockRequest);
 
-    expect(mockResponse.cookies.set).toHaveBeenCalledWith('theme', 'light', {
+    expect(mockResponse.cookies.set).toHaveBeenCalledWith('theme', 'dark', {
       httpOnly: false,
       secure: false,
       sameSite: 'lax',
@@ -207,7 +207,7 @@ describe('middleware', () => {
 
     middleware(mockRequest);
 
-    expect(mockResponse.cookies.set).toHaveBeenCalledWith('theme', 'light', {
+    expect(mockResponse.cookies.set).toHaveBeenCalledWith('theme', 'dark', {
       httpOnly: false,
       secure: true,
       sameSite: 'lax',
@@ -240,7 +240,7 @@ describe('middleware', () => {
 
     expect(mockResponse.cookies.set).toHaveBeenCalledWith(
       'theme',
-      'light',
+      'dark',
       expect.any(Object)
     );
   });

@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
   const acceptLanguage = request.headers.get('accept-language') ?? '';
   const prefersColorScheme = request.headers.get('sec-ch-prefers-color-scheme');
 
-  let theme = 'light';
+  let theme = 'dark';
 
   if (
     userAgent.toLowerCase().includes('dark') ||

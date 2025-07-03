@@ -33,7 +33,7 @@ export const getCountryDescription = (
   },
   {
     label: 'Population',
-    value: countryDetails?.population?.toLocaleString(),
+    value: countryDetails?.population?.toLocaleString('pt-BR'),
   },
   {
     label: 'Region',

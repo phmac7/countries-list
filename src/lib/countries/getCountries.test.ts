@@ -16,14 +16,7 @@ describe('getCountries', () => {
     expect(result).toEqual(mockData);
     expect(fetch).toHaveBeenCalledWith(
       'https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital,cca3',
-      {
-        next: {
-          revalidate: 3600,
-        },
-        headers: {
-          'Cache-Control': 'public, max-age=3600, must-revalidate',
-        },
-      }
+      { cache: 'force-cache' }
     );
   });
 

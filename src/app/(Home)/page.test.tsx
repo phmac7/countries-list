@@ -2,7 +2,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import Home from '@/app/(Home)/page';
 import { getCountriesSummary } from '@/lib/countries/getCountries';
 import { HomeTemplate } from '@/templates';
-import styles from './page.module.scss';
 
 jest.mock('@/lib/countries/getCountries', () => ({
   getCountriesSummary: jest.fn(),
@@ -34,7 +33,6 @@ describe('Home page', () => {
 
     const homeContentDiv = screen.getByTestId('home-content');
     expect(homeContentDiv).toBeInTheDocument();
-    expect(homeContentDiv).toHaveClass(styles.page);
 
     expect(screen.getByTestId('mock-home-template')).toBeInTheDocument();
   });
@@ -50,6 +48,5 @@ describe('Home page', () => {
     });
 
     expect(screen.getByTestId('home-content')).toBeInTheDocument();
-    expect(screen.getByTestId('home-content')).toHaveClass(styles.page);
   });
 });

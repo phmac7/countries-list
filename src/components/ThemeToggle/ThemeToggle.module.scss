@@ -31,7 +31,7 @@
 }
 
 .themeText {
-  @media (max-width: $breakpoint-mobile) {
+  @include mobile {
     display: none;
   }
 }

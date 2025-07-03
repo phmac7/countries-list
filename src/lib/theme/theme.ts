@@ -5,7 +5,7 @@ export const getThemeFromClient = (
   localStorageGetItem?: (key: string) => string | null,
   matchMediaFn?: (query: string) => { matches: boolean }
 ): Theme => {
-  if (typeof window === 'undefined') return 'light';
+  if (typeof window === 'undefined') return 'dark';
 
   try {
     const cookies = (cookieString ?? document.cookie).split(';');
@@ -31,7 +31,7 @@ export const getThemeFromClient = (
     const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
     return prefersDark ? 'dark' : 'light';
   } catch {
-    return 'light';
+    return 'dark';
   }
 };
 

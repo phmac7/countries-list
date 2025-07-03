@@ -11,14 +11,14 @@ export function middleware(request: NextRequest) {
   const acceptLanguage = request.headers.get('accept-language') ?? '';
   const prefersColorScheme = request.headers.get('sec-ch-prefers-color-scheme');
 
-  let theme = 'light';
+  let theme = 'dark';
 
   if (
-    userAgent.toLowerCase().includes('dark') ||
-    acceptLanguage.toLowerCase().includes('dark') ||
-    prefersColorScheme === 'dark'
+    userAgent.toLowerCase().includes('light') ||
+    acceptLanguage.toLowerCase().includes('light') ||
+    prefersColorScheme === 'light'
   ) {
-    theme = 'dark';
+    theme = 'light';
   }
 
   const response = NextResponse.next();

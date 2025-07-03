@@ -7,8 +7,8 @@ export const getThemeFromServer = async (): Promise<Theme> => {
     const themeCookie = cookieStore.get('theme');
     const value = themeCookie?.value;
     if (value === 'light' || value === 'dark') return value;
-    return 'light';
+    return 'dark';
   } catch {
-    return 'light';
+    return 'dark';
   }
 };
